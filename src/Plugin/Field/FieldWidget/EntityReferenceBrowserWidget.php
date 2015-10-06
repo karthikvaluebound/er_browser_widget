@@ -44,6 +44,7 @@ class EntityReferenceBrowserWidget extends WidgetBase {
             '#title' => $this->t('Search Content'),
             '#ajax' => [
                 'callback' => array($this, 'er_browser_widget_search_content'),
+                // 'callback' => 'Drupal\er_browser_widget\Form\EntityReferenceBrowserWidgetForm::randomUsernameCallback',
                 'event' => 'click',
                 'progress' => array(
                     'type' => 'throbber',
@@ -88,7 +89,8 @@ class EntityReferenceBrowserWidget extends WidgetBase {
         $title = $this->t('Entity Search and Reference.');
         $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
         $response->setAttachments($form['#attached']);
-        $content = '<div class="views-test123">' . 'rakesh, karthik' . '</div>';
+        // $content = '<div class="views-test123">' . 'rakesh, karthik' . '</div>';
+        $content = views_embed_view('entity_reference_browser_widget');
         $options = array(
           'dialogClass' => 'test-dialog',
           'width' => '75%',
