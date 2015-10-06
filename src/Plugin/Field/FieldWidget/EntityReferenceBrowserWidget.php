@@ -87,12 +87,12 @@ class EntityReferenceBrowserWidget extends WidgetBase {
         $response = new AjaxResponse();
         $title = $this->t('Entity Search and Reference.');
         $content['#attached']['library'][] = 'core/drupal.dialog.ajax';
-        //$content['data'] = 'asdasdasd';
-        //$content12 = array("#markup" => "heloo");
-        //$con = "<div>asd</div>";
-        $modal = new OpenModalDialogCommand($title, $content);
-        //$modal->setDialogTitle("Rakesh James");
-        //$modal->setDialogOptions($content12);
+        $content = '<div class="views-test123">' . 'rakesh, karthik' . '</div>';
+        $options = array(
+          'dialogClass' => 'test-dialog',
+          'width' => '75%',
+        );
+        $modal = new OpenModalDialogCommand($title, $content, $options);
         $response->addCommand($modal);
         return $response; 
     }
