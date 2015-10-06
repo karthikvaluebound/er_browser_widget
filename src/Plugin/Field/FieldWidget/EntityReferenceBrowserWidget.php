@@ -94,7 +94,7 @@ class EntityReferenceBrowserWidget extends WidgetBase {
         //$modal->setDialogTitle("Rakesh James");
         //$modal->setDialogOptions($content12);
         $response->addCommand($modal);
-        return $response;
+        return $response; 
     }
 
 }
