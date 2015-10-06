@@ -86,7 +86,8 @@ class EntityReferenceBrowserWidget extends WidgetBase {
     function er_browser_widget_search_content(array &$form, FormStateInterface $form_state) {
         $response = new AjaxResponse();
         $title = $this->t('Entity Search and Reference.');
-        $content['#attached']['library'][] = 'core/drupal.dialog.ajax';
+        $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
+        $response->setAttachments($form['#attached']);
         $content = '<div class="views-test123">' . 'rakesh, karthik' . '</div>';
         $options = array(
           'dialogClass' => 'test-dialog',
@@ -94,7 +95,7 @@ class EntityReferenceBrowserWidget extends WidgetBase {
         );
         $modal = new OpenModalDialogCommand($title, $content, $options);
         $response->addCommand($modal);
-        return $response; 
+        return $response;
     }
 
 }
