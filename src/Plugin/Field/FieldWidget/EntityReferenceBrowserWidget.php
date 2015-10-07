@@ -53,49 +53,21 @@ class EntityReferenceBrowserWidget extends WidgetBase {
             ],
             '#suffix' => '<span class="er_html"></span>'
         );
-        $referenced_entities = $items->referencedEntities();
-        $target_type = $this->getFieldSetting('target_type');
-        $handler = $this->getFieldSetting('handler');
-        $handler_settings = $this->getFieldSetting('handler_settings');  // gets the handler settings.
-        $field_settings = $this->fieldDefinition->getSettings();  // gets the field settings, like content type selected for entities references.
-        $cardinality = $this->fieldDefinition->getFieldStorageDefinition();  // gets the number of entity values to be stored.
-        $k = 1;
-        /*$entity = $items->getEntity();
-        $referenced_entities = $items->referencedEntities();
-        $element += array(
-            '#type' => 'entity_autocomplete',
-            '#target_type' => $this->getFieldSetting('target_type'),
-            '#selection_handler' => $this->getFieldSetting('handler'),
-            '#selection_settings' => $this->getFieldSetting('handler_settings'),
-            // Entity reference field items are handling validation themselves via
-            // the 'ValidReference' constraint.
-            '#validate_reference' => FALSE,
-            '#maxlength' => 1024,
-            '#default_value' => isset($referenced_entities[$delta]) ? $referenced_entities[$delta] : NULL,
-            '#size' => $this->getSetting('size'),
-            '#placeholder' => $this->getSetting('placeholder'),
-        );
-        if ($this->getSelectionHandlerSetting('auto_create')) {
-            $element['#autocreate'] = array(
-                'bundle' => $this->getAutocreateBundle(),
-                'uid' => ($entity instanceof EntityOwnerInterface) ? $entity->getOwnerId() : \Drupal::currentUser()->id()
-            );
-        }*/
         return $main_element;
     }
 
     function er_browser_widget_search_content(array &$form, FormStateInterface $form_state) {
+        $form = \Drupal::formBuilder()->getForm('Drupal\er_browser_widget\Form\EntityReferenceBrowserWidgetForm');
         $response = new AjaxResponse();
         $title = $this->t('Entity Search and Reference.');
         $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
         $response->setAttachments($form['#attached']);
-        // $content = '<div class="views-test123">' . 'rakesh, karthik' . '</div>';
         $content = views_embed_view('entity_reference_browser_widget');
         $options = array(
           'dialogClass' => 'test-dialog',
           'width' => '75%',
         );
-        $modal = new OpenModalDialogCommand($title, $content, $options);
+        $modal = new OpenModalDialogCommand($title, $form, $options);
         $response->addCommand($modal);
         return $response;
     }
